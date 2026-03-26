@@ -27,6 +27,14 @@ A single entry point routes requests to the right backend:
 | ML Theory | Scaling law comparison | plot | ![ML theory showcase](docs/assets/showcase/ml_theory_scaling_law.png) |
 | Audio / Systems | FLAC metadata extraction overview, plus [editable `.drawio`](docs/assets/drawio_flac_pipeline.drawio) | banana + drawio | ![Audio showcase](docs/assets/banana_flac_metadata_overview.png) |
 
+## More Examples
+
+| Case | Source | Backend | Preview |
+| --- | --- | --- | --- |
+| Error-bar ablation chart | [ablation_with_error.md](examples/plot/ablation_with_error.md) | plot | ![Error bar showcase](docs/assets/showcase/plot_error_bars.png) |
+| Dual-axis log-x tradeoff chart | [benchmark_dual_axis.md](examples/plot/benchmark_dual_axis.md) | plot | ![Dual axis showcase](docs/assets/showcase/plot_dual_axis_logx.png) |
+| Structure + results composite figure | [corridor_results_hybrid.md](examples/hybrid/corridor_results_hybrid.md) | hybrid | ![Hybrid showcase](docs/assets/showcase/hybrid_corridor_results.png) |
+
 ## Capabilities
 
 - `research-figure-studio`: route, build `figure_intent.yaml`, render, verify
@@ -104,6 +112,14 @@ python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
 | LLM | 工具调用智能体流程 | banana | ![LLM 展示图](docs/assets/showcase/llm_agent_pipeline.png) |
 | ML 理论 | scaling law 对比图 | plot | ![ML 理论展示图](docs/assets/showcase/ml_theory_scaling_law.png) |
 | 音频 / 系统 | FLAC 元信息提取，附 [可编辑 `.drawio`](docs/assets/drawio_flac_pipeline.drawio) | banana + drawio | ![Audio 展示图](docs/assets/banana_flac_metadata_overview.png) |
+
+## 更多案例
+
+| 案例 | 源文件 | 后端 | 展示 |
+| --- | --- | --- | --- |
+| 带误差棒的 ablation 图 | [ablation_with_error.md](examples/plot/ablation_with_error.md) | plot | ![误差棒案例](docs/assets/showcase/plot_error_bars.png) |
+| 双轴对数横轴 tradeoff 图 | [benchmark_dual_axis.md](examples/plot/benchmark_dual_axis.md) | plot | ![双轴案例](docs/assets/showcase/plot_dual_axis_logx.png) |
+| 结构图 + 结果图组合图 | [corridor_results_hybrid.md](examples/hybrid/corridor_results_hybrid.md) | hybrid | ![Hybrid 案例](docs/assets/showcase/hybrid_corridor_results.png) |
 
 ## 能力范围
 
