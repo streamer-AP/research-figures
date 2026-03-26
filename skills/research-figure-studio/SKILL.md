@@ -121,6 +121,22 @@ The plot backend is intended for:
 - common LaTeX `tabular` tables
 - line, grouped-bar, stacked-bar, and scatter plots
 - time-series charts with dense-label reduction and preview-ready layout
+- error bars, dual-axis plots, and request-driven log scales
+
+If backend is `hybrid`, generate both the editable structure and the quantitative panel:
+
+```bash
+python3 scripts/run_figure_pipeline.py \
+  --source-file examples/hybrid/corridor_results_hybrid.md \
+  --request "generate a hybrid figure with structure and result chart" \
+  --output-dir out/hybrid_demo
+```
+
+The hybrid backend currently outputs:
+
+- a `.drawio` architecture file
+- plot `SVG + PNG` artifacts
+- a composed preview PNG for GitHub, papers, or demos
 
 Read:
 
@@ -168,7 +184,7 @@ If the image backend still drifts on a structure-heavy figure:
 - Use `drawio` when exact module placement matters.
 - Use `banana` when communication value matters more than exact topology.
 - Use `plot` for metrics, charts, and ablations.
-- Use `hybrid` only after the basic single-backend paths work.
+- Use `hybrid` when the source includes both stages and quantitative evidence.
 
 ## Bundled Scripts
 
@@ -178,8 +194,10 @@ If the image backend still drifts on a structure-heavy figure:
 - [scripts/compile_banana_prompt.py](scripts/compile_banana_prompt.py)
 - [scripts/compile_drawio_package.py](scripts/compile_drawio_package.py)
 - [scripts/compile_plot_package.py](scripts/compile_plot_package.py)
+- [scripts/plot_render_utils.py](scripts/plot_render_utils.py)
 - [scripts/render_plot_png.py](scripts/render_plot_png.py)
 - [scripts/render_plot_svg.py](scripts/render_plot_svg.py)
+- [scripts/render_hybrid_preview.py](scripts/render_hybrid_preview.py)
 - [scripts/verify_figure_result.py](scripts/verify_figure_result.py)
 - [scripts/run_figure_pipeline.py](scripts/run_figure_pipeline.py)
 

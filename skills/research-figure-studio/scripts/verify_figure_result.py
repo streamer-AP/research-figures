@@ -12,6 +12,7 @@ import yaml
 
 STRUCTURE_HEAVY_CLASSES = {"editable-diagram", "patent-figure"}
 NUMERIC_CLASSES = {"chart-or-plot"}
+HYBRID_CLASSES = {"hybrid-figure"}
 
 
 def collect_issues(intent: dict, backend: str, artifact: str | None) -> list[str]:
@@ -29,6 +30,12 @@ def collect_issues(intent: dict, backend: str, artifact: str | None) -> list[str
 
     if backend == "plot" and figure_class not in NUMERIC_CLASSES:
         issues.append("plot backend is mismatched with a non-numeric figure class")
+
+    if figure_class in HYBRID_CLASSES and backend != "hybrid":
+        issues.append("hybrid figure class should use the hybrid backend")
+
+    if backend == "hybrid" and figure_class not in HYBRID_CLASSES:
+        issues.append("hybrid backend is mismatched with a non-hybrid figure class")
 
     if artifact and not Path(artifact).exists():
         issues.append("artifact path does not exist")
@@ -56,6 +63,8 @@ def main() -> int:
         "retry_strategy": (
             ["switch to drawio"]
             if any("banana backend" in issue for issue in issues)
+            else ["switch to hybrid backend"]
+            if any("hybrid backend" in issue or "hybrid figure class" in issue for issue in issues)
             else ["switch to plot backend"]
             if any("plot backend" in issue or "numeric figure class" in issue for issue in issues)
             else ([] if not issues else ["strengthen intent before rendering"])

@@ -130,6 +130,39 @@ def render_plot(
     return plot_png_path, [spec_path, plot_path, plot_png_path]
 
 
+def render_hybrid(
+    script_dir: Path,
+    backend_scripts: dict[str, Path],
+    intent_path: Path,
+    output_dir: Path,
+) -> tuple[Path, list[Path]]:
+    drawio_spec = output_dir / "figure.drawio_spec.yaml"
+    drawio_path = output_dir / "figure.drawio"
+    plot_spec = output_dir / "figure.plot_spec.yaml"
+    plot_svg = output_dir / "figure.plot.svg"
+    plot_png = output_dir / "figure.plot.png"
+    preview_png = output_dir / "figure.hybrid_preview.png"
+
+    run(["python3", str(script_dir / "compile_drawio_package.py"), str(intent_path), "-o", str(drawio_spec)])
+    run(["python3", str(backend_scripts["drawio_convert"]), str(drawio_spec), "-o", str(drawio_path)])
+    run(["python3", str(script_dir / "compile_plot_package.py"), str(intent_path), "-o", str(plot_spec)])
+    run(["python3", str(script_dir / "render_plot_svg.py"), str(plot_spec), "-o", str(plot_svg)])
+    run(["python3", str(script_dir / "render_plot_png.py"), str(plot_spec), "-o", str(plot_png)])
+    run(
+        [
+            "python3",
+            str(script_dir / "render_hybrid_preview.py"),
+            "--drawio-spec",
+            str(drawio_spec),
+            "--plot-image",
+            str(plot_png),
+            "-o",
+            str(preview_png),
+        ]
+    )
+    return preview_png, [drawio_spec, drawio_path, plot_spec, plot_svg, plot_png, preview_png]
+
+
 def verify(
     script_dir: Path,
     intent_path: Path,
@@ -198,7 +231,8 @@ def main() -> int:
         artifact_path, artifacts = render_plot(script_dir, intent_path, output_dir)
         produced_files.extend(artifacts)
     elif backend == "hybrid":
-        raise SystemExit("hybrid backend is planned but not implemented yet.")
+        artifact_path, artifacts = render_hybrid(script_dir, backend_scripts, intent_path, output_dir)
+        produced_files.extend(artifacts)
     else:
         raise SystemExit(f"Unsupported backend: {backend}")
 

@@ -88,6 +88,10 @@ def detect_stages(text: str) -> list[dict]:
 
 def route(text: str, request: str) -> tuple[str, str]:
     lower = (text + "\n" + request).lower()
+    has_table = "\\begin{tabular" in text or bool(re.search(r"^\s*\|.+\|\s*$", text, flags=re.M))
+    has_stage_text = bool(detect_stages(text)) or any(token in lower for token in ["pipeline", "workflow", "architecture", "流程", "步骤", "阶段", "架构"])
+    if any(token in lower for token in ["hybrid", "hybrid figure", "composite figure", "mixed figure", "结构+结果", "架构+结果"]) or (has_table and has_stage_text):
+        return "hybrid-figure", "hybrid"
     if any(token in lower for token in ["专利", "附图", "patent"]):
         return "patent-figure", "drawio"
     if any(token in lower for token in ["visual abstract", "teaser", "cover figure", "visual-abstract"]):

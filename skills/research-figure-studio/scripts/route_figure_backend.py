@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
@@ -19,8 +20,39 @@ def read_text(path: str | None, request: str | None) -> str:
     return "\n".join(parts)
 
 
+def has_numeric_table(text: str) -> bool:
+    if re.search(r"\\begin\{tabular", text):
+        return True
+    if re.search(r"^\s*\|.+\|\s*$", text, flags=re.M):
+        return True
+    return False
+
+
+def has_stage_language(text: str) -> bool:
+    lower = text.lower()
+    if any(token in lower for token in ["stages", "steps", "pipeline", "workflow", "main stages", "method figure", "architecture", "流程", "步骤", "阶段", "架构"]):
+        return True
+    return bool(re.search(r"^\s*[-*+]\s+", text, flags=re.M) or re.search(r"^\s*\d+[.)]\s+", text, flags=re.M))
+
+
 def route(text: str) -> dict:
     lower = text.lower()
+
+    if any(token in lower for token in ["hybrid", "hybrid figure", "composite figure", "mixed figure", "结构+结果", "架构+结果"]):
+        return {
+            "figure_class": "hybrid-figure",
+            "backend": "hybrid",
+            "fallback_backend": "drawio",
+            "reason": ["the request explicitly asks for a combined structure-plus-results figure"],
+        }
+
+    if has_numeric_table(text) and has_stage_language(text):
+        return {
+            "figure_class": "hybrid-figure",
+            "backend": "hybrid",
+            "fallback_backend": "drawio",
+            "reason": ["the source includes both structural stages and quantitative tables"],
+        }
 
     # Prioritize explicit figure intent before broad keyword matching.
     if any(token in lower for token in ["专利", "权利要求", "附图", "patent"]):

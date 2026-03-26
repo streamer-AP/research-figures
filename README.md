@@ -15,6 +15,7 @@ A single entry point routes requests to the right backend:
 - `drawio` for editable structure
 - `banana` for image-first paper figures
 - `plot` for polished charts from Markdown, CSV, and common LaTeX tables
+- `hybrid` for editable structure plus a quantitative panel in one run
 
 ## Showcase
 
@@ -32,7 +33,8 @@ A single entry point routes requests to the right backend:
 - `drawio-architecture-diagram`: editable `.drawio` architecture and pipeline figures
 - `banana-paper-illustration`: visual abstracts, concept figures, paper-style method art
 - `plot`: Markdown / CSV / LaTeX tables to line, grouped-bar, stacked-bar, and scatter charts with `SVG + PNG`
-- `plot`: dense-tick reduction, better title fallback, and preview-ready chart cards
+- `plot`: error bars, dual-axis, log-scale, dense-tick reduction, and preview-ready chart cards
+- `hybrid`: one-click `.drawio` + plot artifacts + a composed preview image
 
 ## Repository Layout
 
@@ -45,6 +47,7 @@ research-figure-skills-github/
 ├── examples/
 │   ├── banana/
 │   ├── drawio/
+│   ├── hybrid/
 │   └── plot/
 └── skills/
     ├── research-figure-studio/
@@ -66,11 +69,18 @@ python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
   --output-dir out/demo
 ```
 
+```bash
+python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
+  --source-file examples/hybrid/corridor_results_hybrid.md \
+  --request "generate a hybrid figure with structure and result chart" \
+  --output-dir out/hybrid_demo
+```
+
 ## Current Limits
 
 - LaTeX parsing is pragmatic and focuses on common `tabular` cases
 - Banana is not suitable for exact topology control
-- `hybrid` routing is planned but not implemented yet
+- `hybrid` preview is a studio-rendered composite, not a direct draw.io export render
 
 ---
 
@@ -83,6 +93,7 @@ python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
 - `drawio` 负责可编辑结构图
 - `banana` 负责论文风图像式配图
 - `plot` 负责从 Markdown / CSV / 常见 LaTeX 表格生成成品图表
+- `hybrid` 负责一次输出可编辑结构图和结果面板
 
 ## 展示效果
 
@@ -100,7 +111,8 @@ python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
 - `drawio-architecture-diagram`：可编辑 `.drawio` 架构图与流程图
 - `banana-paper-illustration`：论文风 visual abstract、概念图、方法图
 - `plot`：支持从 Markdown / CSV / LaTeX 表格生成折线图、分组柱状图、堆叠柱状图、散点图，并输出 `SVG + PNG`
-- `plot`：补充了稠密横轴压缩、标题兜底和更适合仓库展示的成品图卡片
+- `plot`：补充了 error bar、双轴、对数坐标、稠密横轴压缩和标题兜底
+- `hybrid`：一键产出 `.drawio`、plot 图和组合预览图
 
 ## 仓库结构
 
@@ -113,6 +125,7 @@ research-figure-skills-github/
 ├── examples/
 │   ├── banana/
 │   ├── drawio/
+│   ├── hybrid/
 │   └── plot/
 └── skills/
     ├── research-figure-studio/
@@ -134,8 +147,15 @@ python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
   --output-dir out/demo
 ```
 
+```bash
+python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
+  --source-file examples/hybrid/corridor_results_hybrid.md \
+  --request "generate a hybrid figure with structure and result chart" \
+  --output-dir out/hybrid_demo
+```
+
 ## 当前限制
 
 - LaTeX 解析是实用型实现，重点支持常见 `tabular`
 - Banana 不适合追求像素级结构控制
-- `hybrid` 路由目前只有设计，没有实现
+- `hybrid` 预览图是 studio 内部合成结果，不是 draw.io 直接导出的位图
