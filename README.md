@@ -4,41 +4,25 @@
 
 ## English
 
-A bundle of Codex skills for controllable scientific figure generation.
+A routing-first toolkit for scientific figure generation.
 
 License: [MIT](LICENSE)
 
-This repo focuses on one practical idea:
+A single entry point routes requests to the right backend:
 
-- route figure requests to the right backend instead of forcing everything through one renderer
-
-It currently supports:
-
-- editable architecture diagrams via `draw.io`
-- image-first paper illustrations via Banana text-to-image
-- reproducible SVG plots from Markdown, CSV, and common LaTeX tables
+- `drawio` for editable structure
+- `banana` for image-first paper figures
+- `plot` for SVG charts from tables
 
 ## Showcase
 
-### 1. Banana Paper Illustration
-
-Synthetic public-safe example for a FLAC metadata extraction method overview:
-
-![Banana showcase](docs/assets/banana_flac_metadata_overview.png)
-
-### 2. Plot Backend
-
-SVG chart generated from a synthetic ablation table:
-
-![Plot showcase](docs/assets/plot_ablation_chart.svg)
-
-### 3. draw.io Backend
-
-Editable draw.io example generated from a FLAC metadata parsing pipeline:
-
-- [Download `drawio_flac_pipeline.drawio`](docs/assets/drawio_flac_pipeline.drawio)
-
-GitHub does not preview `.drawio` inline, so the editable file is linked instead of embedded.
+| Domain | Example | Backend | Preview |
+| --- | --- | --- | --- |
+| CV | Multi-stage perception / segmentation | drawio | [editable `.drawio`](docs/assets/drawio_flac_pipeline.drawio) |
+| NLP | Document-level information extraction | banana | ![NLP showcase](docs/assets/showcase/nlp_document_ie.png) |
+| LLM | Tool-using agent pipeline | banana | ![LLM showcase](docs/assets/showcase/llm_agent_pipeline.png) |
+| ML Theory | Scaling law comparison | plot | ![ML theory showcase](docs/assets/showcase/ml_theory_scaling_law.svg) |
+| Audio / Systems | FLAC metadata extraction overview | banana | ![Audio showcase](docs/assets/banana_flac_metadata_overview.png) |
 
 ## What Is Included
 
@@ -73,42 +57,11 @@ Important:
 
 ## Quick Start
 
-### Editable Diagram
-
 ```bash
 python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
-  --source-file examples/drawio/flac_metadata_pipeline.md \
+  --source-file examples/showcase/llm_agent_pipeline.md \
   --request "generate an editable architecture diagram" \
-  --output-dir out/drawio_demo
-```
-
-### Plot
-
-```bash
-python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
-  --source-file examples/plot/ablation_table.md \
-  --request "generate an ablation bar chart" \
-  --output-dir out/plot_demo
-```
-
-### LaTeX Table To Plot
-
-```bash
-python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
-  --source-file examples/plot/umbrella_hourly_report.tex \
-  --request "generate hourly max umbrella count line plot" \
-  --output-dir out/plot_tex_demo
-```
-
-### Banana Illustration
-
-```bash
-export API_KEY="your-key-here"
-
-python3 skills/banana-paper-illustration/scripts/generate_banana_illustration.py \
-  --source-file examples/banana/flac_metadata_method_overview.md \
-  --mode method-overview \
-  --output out/flac_metadata_overview.png
+  --output-dir out/demo
 ```
 
 ## Current Limits
@@ -122,40 +75,23 @@ python3 skills/banana-paper-illustration/scripts/generate_banana_illustration.py
 
 ## 中文说明
 
-这是一个面向科研绘图的 Codex skills 集合，核心目标不是“单一 prompt 出图”，而是把科研绘图拆成可控的四步：
+这是一个“路由优先”的科研绘图工具箱。
 
-- 路由：先判断该走 `drawio`、`plot` 还是 `banana`
-- 意图：把长篇论文/方案压缩成统一的 `figure_intent.yaml`
-- 渲染：交给最合适的后端
-- 校验：在结果落盘前拦截错误后端和弱结构输入
+统一入口会先判断该走哪类后端：
 
-当前支持三类能力：
-
-- `draw.io` 可编辑架构图
-- Banana 图像式论文配图
-- 从 Markdown / CSV / 常见 LaTeX 表格生成 SVG 图表
+- `drawio` 负责可编辑结构图
+- `banana` 负责论文风图像式配图
+- `plot` 负责从表格生成 SVG 图表
 
 ## 展示效果
 
-### 1. Banana 论文风方法图
-
-这是一个公开安全的合成示例，主题是 FLAC 音频元信息提取：
-
-![Banana 展示图](docs/assets/banana_flac_metadata_overview.png)
-
-### 2. Plot 后端
-
-这是从合成 ablation 表格生成的 SVG 图表：
-
-![Plot 展示图](docs/assets/plot_ablation_chart.svg)
-
-### 3. draw.io 后端
-
-这是从 FLAC 元信息解析流程生成的可编辑 `.drawio` 文件：
-
-- [下载 `drawio_flac_pipeline.drawio`](docs/assets/drawio_flac_pipeline.drawio)
-
-由于 GitHub 不能直接内嵌预览 `.drawio`，这里保留可下载的源文件。
+| 方向 | 示例 | 后端 | 展示 |
+| --- | --- | --- | --- |
+| CV | 多阶段感知 / 分割流程 | drawio | [可编辑 `.drawio`](docs/assets/drawio_flac_pipeline.drawio) |
+| NLP | 文档级信息抽取 | banana | ![NLP 展示图](docs/assets/showcase/nlp_document_ie.png) |
+| LLM | 工具调用智能体流程 | banana | ![LLM 展示图](docs/assets/showcase/llm_agent_pipeline.png) |
+| ML 理论 | scaling law 对比图 | plot | ![ML 理论展示图](docs/assets/showcase/ml_theory_scaling_law.svg) |
+| 音频 / 系统 | FLAC 元信息提取 | banana | ![Audio 展示图](docs/assets/banana_flac_metadata_overview.png) |
 
 ## 包含的 Skill
 
@@ -190,42 +126,11 @@ research-figure-skills-github/
 
 ## 快速开始
 
-### 可编辑架构图
-
 ```bash
 python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
-  --source-file examples/drawio/flac_metadata_pipeline.md \
+  --source-file examples/showcase/llm_agent_pipeline.md \
   --request "generate an editable architecture diagram" \
-  --output-dir out/drawio_demo
-```
-
-### 图表
-
-```bash
-python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
-  --source-file examples/plot/ablation_table.md \
-  --request "generate an ablation bar chart" \
-  --output-dir out/plot_demo
-```
-
-### LaTeX 表格转图
-
-```bash
-python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
-  --source-file examples/plot/umbrella_hourly_report.tex \
-  --request "generate hourly max umbrella count line plot" \
-  --output-dir out/plot_tex_demo
-```
-
-### Banana 图像式配图
-
-```bash
-export API_KEY="your-key-here"
-
-python3 skills/banana-paper-illustration/scripts/generate_banana_illustration.py \
-  --source-file examples/banana/flac_metadata_method_overview.md \
-  --mode method-overview \
-  --output out/flac_metadata_overview.png
+  --output-dir out/demo
 ```
 
 ## 当前限制
