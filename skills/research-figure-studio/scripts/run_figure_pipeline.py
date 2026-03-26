@@ -123,9 +123,11 @@ def render_plot(
 ) -> tuple[Path, list[Path]]:
     spec_path = output_dir / "figure.plot_spec.yaml"
     plot_path = output_dir / "figure.svg"
+    plot_png_path = output_dir / "figure.png"
     run(["python3", str(script_dir / "compile_plot_package.py"), str(intent_path), "-o", str(spec_path)])
     run(["python3", str(script_dir / "render_plot_svg.py"), str(spec_path), "-o", str(plot_path)])
-    return plot_path, [spec_path, plot_path]
+    run(["python3", str(script_dir / "render_plot_png.py"), str(spec_path), "-o", str(plot_png_path)])
+    return plot_png_path, [spec_path, plot_path, plot_png_path]
 
 
 def verify(

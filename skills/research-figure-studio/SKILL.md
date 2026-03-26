@@ -106,12 +106,21 @@ python3 scripts/compile_banana_prompt.py figure_intent.yaml -o figure.prompt.txt
 
 If backend is `drawio`, delegate to `drawio-architecture-diagram`.
 
-If backend is `plot`, compile a plot spec and render an SVG chart:
+If backend is `plot`, compile a plot spec and render both an SVG chart and a polished PNG preview:
 
 ```bash
 python3 scripts/compile_plot_package.py figure_intent.yaml -o figure.plot_spec.yaml
 python3 scripts/render_plot_svg.py figure.plot_spec.yaml -o figure.svg
+python3 scripts/render_plot_png.py figure.plot_spec.yaml -o figure.png
 ```
+
+The plot backend is intended for:
+
+- Markdown tables
+- CSV tables
+- common LaTeX `tabular` tables
+- line, grouped-bar, stacked-bar, and scatter plots
+- time-series charts with dense-label reduction and preview-ready layout
 
 Read:
 
@@ -169,6 +178,7 @@ If the image backend still drifts on a structure-heavy figure:
 - [scripts/compile_banana_prompt.py](scripts/compile_banana_prompt.py)
 - [scripts/compile_drawio_package.py](scripts/compile_drawio_package.py)
 - [scripts/compile_plot_package.py](scripts/compile_plot_package.py)
+- [scripts/render_plot_png.py](scripts/render_plot_png.py)
 - [scripts/render_plot_svg.py](scripts/render_plot_svg.py)
 - [scripts/verify_figure_result.py](scripts/verify_figure_result.py)
 - [scripts/run_figure_pipeline.py](scripts/run_figure_pipeline.py)

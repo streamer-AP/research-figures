@@ -26,3 +26,6 @@ verification.yaml
 !docs/assets/*.png
 !docs/assets/*.svg
 !docs/assets/*.drawio
+!docs/assets/**/*.png
+!docs/assets/**/*.svg
+!docs/assets/**/*.drawio

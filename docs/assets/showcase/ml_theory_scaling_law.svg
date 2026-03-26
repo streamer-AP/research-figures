@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<rect width="100%" height="100%" fill="#f7f8fb"/>
+<rect x="32" y="32" width="1136" height="696" rx="26" fill="#ffffff"/>
+<text x="64" y="86" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="700" text-anchor="start" fill="#111827">Scaling Law Comparison</text>
+<line x1="110" y1="610.00" x2="1140" y2="610.00" stroke="#e2e8f0" stroke-width="1"/>
+<text x="96" y="615.00" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="end" fill="#4a5568">0</text>
+<line x1="110" y1="507.20" x2="1140" y2="507.20" stroke="#e2e8f0" stroke-width="1"/>
+<text x="96" y="512.20" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="end" fill="#4a5568">0.549</text>
+<line x1="110" y1="404.40" x2="1140" y2="404.40" stroke="#e2e8f0" stroke-width="1"/>
+<text x="96" y="409.40" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="end" fill="#4a5568">1.098</text>
+<line x1="110" y1="301.60" x2="1140" y2="301.60" stroke="#e2e8f0" stroke-width="1"/>
+<text x="96" y="306.60" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="end" fill="#4a5568">1.646</text>
+<line x1="110" y1="198.80" x2="1140" y2="198.80" stroke="#e2e8f0" stroke-width="1"/>
+<text x="96" y="203.80" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="end" fill="#4a5568">2.195</text>
+<line x1="110" y1="96.00" x2="1140" y2="96.00" stroke="#e2e8f0" stroke-width="1"/>
+<text x="96" y="101.00" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="end" fill="#4a5568">2.744</text>
+<line x1="110" y1="96" x2="110" y2="610" stroke="#1a202c" stroke-width="2"/>
+<line x1="110" y1="610.00" x2="1140" y2="610.00" stroke="#1a202c" stroke-width="2"/>
+<polyline fill="none" stroke="#2358A5" stroke-width="3" points="110.00,151.07 125.97,196.03 157.91,239.11 205.81,265.34 341.55,299.05 660.93,330.90 1140.00,351.50"/>
+<circle cx="110.00" cy="151.07" r="4.5" fill="#2358A5" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="125.97" cy="196.03" r="4.5" fill="#2358A5" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="157.91" cy="239.11" r="4.5" fill="#2358A5" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="205.81" cy="265.34" r="4.5" fill="#2358A5" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="341.55" cy="299.05" r="4.5" fill="#2358A5" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="660.93" cy="330.90" r="4.5" fill="#2358A5" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="1140.00" cy="351.50" r="4.5" fill="#2358A5" stroke="#ffffff" stroke-width="1.5"/>
+<polyline fill="none" stroke="#2F855A" stroke-width="3" points="110.00,162.31 125.97,209.14 157.91,257.84 205.81,289.69 341.55,327.15 660.93,360.87 1140.00,381.47"/>
+<circle cx="110.00" cy="162.31" r="4.5" fill="#2F855A" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="125.97" cy="209.14" r="4.5" fill="#2F855A" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="157.91" cy="257.84" r="4.5" fill="#2F855A" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="205.81" cy="289.69" r="4.5" fill="#2F855A" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="341.55" cy="327.15" r="4.5" fill="#2F855A" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="660.93" cy="360.87" r="4.5" fill="#2F855A" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="1140.00" cy="381.47" r="4.5" fill="#2F855A" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="110.00" y1="610.00" x2="110.00" y2="616.00" stroke="#9ca3af" stroke-width="1"/>
+<text x="110.00" y="640" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#6b7280">0.1</text>
+<line x1="157.91" y1="610.00" x2="157.91" y2="616.00" stroke="#9ca3af" stroke-width="1"/>
+<text x="157.91" y="640" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#6b7280">0.7</text>
+<line x1="341.55" y1="610.00" x2="341.55" y2="616.00" stroke="#9ca3af" stroke-width="1"/>
+<text x="341.55" y="640" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#6b7280">3.0</text>
+<line x1="1140.00" y1="610.00" x2="1140.00" y2="616.00" stroke="#9ca3af" stroke-width="1"/>
+<text x="1140.00" y="640" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#6b7280">13.0</text>
+<rect x="900" y="105" width="16" height="16" rx="3" fill="#2358A5"/>
+<text x="924" y="118" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#2d3748">Baseline Loss</text>
+<rect x="900" y="129" width="16" height="16" rx="3" fill="#2F855A"/>
+<text x="924" y="142" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#2d3748">Improved Loss</text>
+<rect x="1030.00" y="317.50" width="100" height="26" rx="8" fill="#111827"/>
+<text x="1080.00" y="334.50" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">best 1.38</text>
+<rect x="1030.00" y="347.47" width="100" height="26" rx="8" fill="#111827"/>
+<text x="1080.00" y="364.47" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#ffffff">best 1.22</text>
+<text x="625.0" y="712" font-family="Helvetica, Arial, sans-serif" font-size="16" text-anchor="middle" fill="#6b7280">Model Size (B)</text>
+<g transform="translate(34,353.0) rotate(-90)"><text font-family="Helvetica, Arial, sans-serif" font-size="16" text-anchor="middle" fill="#6b7280">LOSS</text></g>
+</svg>

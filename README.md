@@ -2,6 +2,8 @@
 
 [中文](#中文说明) | [English](#english)
 
+![Hero banner](docs/assets/hero_banner.png)
+
 ## English
 
 A routing-first toolkit for scientific figure generation.
@@ -12,25 +14,25 @@ A single entry point routes requests to the right backend:
 
 - `drawio` for editable structure
 - `banana` for image-first paper figures
-- `plot` for SVG charts from tables
+- `plot` for polished charts from Markdown, CSV, and common LaTeX tables
 
 ## Showcase
 
 | Domain | Example | Backend | Preview |
 | --- | --- | --- | --- |
-| CV | Multi-stage perception / segmentation | drawio | [editable `.drawio`](docs/assets/drawio_flac_pipeline.drawio) |
+| CV | Coarse-to-fine corridor segmentation | banana | ![CV showcase](docs/assets/showcase/cv_multiscale_segmentation.png) |
 | NLP | Document-level information extraction | banana | ![NLP showcase](docs/assets/showcase/nlp_document_ie.png) |
 | LLM | Tool-using agent pipeline | banana | ![LLM showcase](docs/assets/showcase/llm_agent_pipeline.png) |
-| ML Theory | Scaling law comparison | plot | ![ML theory showcase](docs/assets/showcase/ml_theory_scaling_law.svg) |
-| Audio / Systems | FLAC metadata extraction overview | banana | ![Audio showcase](docs/assets/banana_flac_metadata_overview.png) |
+| ML Theory | Scaling law comparison | plot | ![ML theory showcase](docs/assets/showcase/ml_theory_scaling_law.png) |
+| Audio / Systems | FLAC metadata extraction overview, plus [editable `.drawio`](docs/assets/drawio_flac_pipeline.drawio) | banana + drawio | ![Audio showcase](docs/assets/banana_flac_metadata_overview.png) |
 
-## What Is Included
+## Capabilities
 
-| Skill | Purpose | Best For |
-| --- | --- | --- |
-| `research-figure-studio` | top-level router, intent builder, verifier | one-click scientific figure workflows |
-| `drawio-architecture-diagram` | editable `.drawio` generation | architecture diagrams, pipelines, patent structure figures |
-| `banana-paper-illustration` | image-first illustration generation | visual abstracts, teaser figures, concept illustrations |
+- `research-figure-studio`: route, build `figure_intent.yaml`, render, verify
+- `drawio-architecture-diagram`: editable `.drawio` architecture and pipeline figures
+- `banana-paper-illustration`: visual abstracts, concept figures, paper-style method art
+- `plot`: Markdown / CSV / LaTeX tables to line, grouped-bar, stacked-bar, and scatter charts with `SVG + PNG`
+- `plot`: dense-tick reduction, better title fallback, and preview-ready chart cards
 
 ## Repository Layout
 
@@ -59,14 +61,13 @@ Important:
 
 ```bash
 python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
-  --source-file examples/showcase/llm_agent_pipeline.md \
-  --request "generate an editable architecture diagram" \
+  --source-file examples/showcase/ml_theory_scaling_law.md \
+  --request "generate a scaling law line plot" \
   --output-dir out/demo
 ```
 
 ## Current Limits
 
-- `plot` currently targets simple line and grouped-bar charts
 - LaTeX parsing is pragmatic and focuses on common `tabular` cases
 - Banana is not suitable for exact topology control
 - `hybrid` routing is planned but not implemented yet
@@ -81,25 +82,25 @@ python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
 
 - `drawio` 负责可编辑结构图
 - `banana` 负责论文风图像式配图
-- `plot` 负责从表格生成 SVG 图表
+- `plot` 负责从 Markdown / CSV / 常见 LaTeX 表格生成成品图表
 
 ## 展示效果
 
 | 方向 | 示例 | 后端 | 展示 |
 | --- | --- | --- | --- |
-| CV | 多阶段感知 / 分割流程 | drawio | [可编辑 `.drawio`](docs/assets/drawio_flac_pipeline.drawio) |
+| CV | 粗到细走廊点云分割 | banana | ![CV 展示图](docs/assets/showcase/cv_multiscale_segmentation.png) |
 | NLP | 文档级信息抽取 | banana | ![NLP 展示图](docs/assets/showcase/nlp_document_ie.png) |
 | LLM | 工具调用智能体流程 | banana | ![LLM 展示图](docs/assets/showcase/llm_agent_pipeline.png) |
-| ML 理论 | scaling law 对比图 | plot | ![ML 理论展示图](docs/assets/showcase/ml_theory_scaling_law.svg) |
-| 音频 / 系统 | FLAC 元信息提取 | banana | ![Audio 展示图](docs/assets/banana_flac_metadata_overview.png) |
+| ML 理论 | scaling law 对比图 | plot | ![ML 理论展示图](docs/assets/showcase/ml_theory_scaling_law.png) |
+| 音频 / 系统 | FLAC 元信息提取，附 [可编辑 `.drawio`](docs/assets/drawio_flac_pipeline.drawio) | banana + drawio | ![Audio 展示图](docs/assets/banana_flac_metadata_overview.png) |
 
-## 包含的 Skill
+## 能力范围
 
-| Skill | 作用 | 适用场景 |
-| --- | --- | --- |
-| `research-figure-studio` | 总控路由、意图生成、校验 | 一键科研绘图流程 |
-| `drawio-architecture-diagram` | 生成可编辑 `.drawio` | 架构图、流程图、专利结构图 |
-| `banana-paper-illustration` | 生成图像式论文配图 | visual abstract、teaser、概念图 |
+- `research-figure-studio`：总控路由、意图生成、渲染与校验
+- `drawio-architecture-diagram`：可编辑 `.drawio` 架构图与流程图
+- `banana-paper-illustration`：论文风 visual abstract、概念图、方法图
+- `plot`：支持从 Markdown / CSV / LaTeX 表格生成折线图、分组柱状图、堆叠柱状图、散点图，并输出 `SVG + PNG`
+- `plot`：补充了稠密横轴压缩、标题兜底和更适合仓库展示的成品图卡片
 
 ## 仓库结构
 
@@ -128,14 +129,13 @@ research-figure-skills-github/
 
 ```bash
 python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
-  --source-file examples/showcase/llm_agent_pipeline.md \
-  --request "generate an editable architecture diagram" \
+  --source-file examples/showcase/ml_theory_scaling_law.md \
+  --request "generate a scaling law line plot" \
   --output-dir out/demo
 ```
 
 ## 当前限制
 
-- `plot` 目前只做简单折线图和分组柱状图
 - LaTeX 解析是实用型实现，重点支持常见 `tabular`
 - Banana 不适合追求像素级结构控制
 - `hybrid` 路由目前只有设计，没有实现
