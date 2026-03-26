@@ -34,7 +34,7 @@ edges:
 visual_objects:
   - ...
 style_constraints:
-  palette: clean-academic
+  palette: vivid-academic
   background: white
   label_density: low
 verification_targets:
@@ -48,3 +48,4 @@ Rules:
 - keep stage labels short
 - keep nuance in `purpose`, not in visible labels
 - record assumptions explicitly
+- use `vivid-academic` for image-first scientific figures that need stronger color energy

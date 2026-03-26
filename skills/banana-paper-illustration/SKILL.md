@@ -75,11 +75,14 @@ Read these references as needed:
 
 - [references/api.md](references/api.md)
 - [references/prompt-patterns.md](references/prompt-patterns.md)
+- [references/scientific-palettes.md](references/scientific-palettes.md)
 
 The script can:
 
 - accept a direct prompt
 - derive a prompt from a source file
+- auto-select a palette by domain when `--palette` is not specified
+- apply a scientific palette preset such as `vivid-academic` or `okabe-ito`
 - save the final resolved prompt to a sibling `.prompt.txt` file
 - call the API and write the returned image to disk
 
@@ -91,6 +94,7 @@ Use the script instead of hand-writing the request each time:
 python3 scripts/generate_banana_illustration.py \
   --source-file paper_method.md \
   --mode method-overview \
+  --palette vivid-academic \
   --output paper_figure.png
 ```
 

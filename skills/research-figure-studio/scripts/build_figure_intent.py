@@ -11,6 +11,96 @@ from pathlib import Path
 import yaml
 
 
+FALLBACK_PALETTE = "vivid-academic"
+DOMAIN_PALETTE_RULES = [
+    (
+        "tol-vibrant",
+        {
+            "cv",
+            "computer vision",
+            "vision",
+            "segmentation",
+            "detection",
+            "tracking",
+            "point cloud",
+            "lidar",
+            "3d perception",
+            "scene understanding",
+            "corridor",
+            "image encoder",
+            "visual",
+        },
+    ),
+    (
+        "tol-bright",
+        {
+            "nlp",
+            "natural language",
+            "language model",
+            "document",
+            "text",
+            "entity",
+            "relation extraction",
+            "knowledge graph",
+            "retrieval",
+            "corpus",
+            "token",
+            "semantic parsing",
+        },
+    ),
+    (
+        "okabe-ito",
+        {
+            "llm",
+            "agent",
+            "tool",
+            "planner",
+            "verifier",
+            "memory",
+            "rag",
+            "multi-agent",
+            "execution loop",
+            "response synthesizer",
+            "reasoning",
+        },
+    ),
+    (
+        "vivid-academic",
+        {
+            "robot",
+            "robotics",
+            "drone",
+            "uav",
+            "system",
+            "hardware",
+            "sensor",
+            "edge",
+            "wireless",
+            "network",
+            "audio",
+            "flac",
+            "signal",
+            "speech",
+            "base station",
+        },
+    ),
+    (
+        "clean-academic",
+        {
+            "optimization",
+            "theory",
+            "mathematics",
+            "proof",
+            "scaling law",
+            "benchmark chart",
+            "ablation",
+            "plot",
+            "statistics",
+        },
+    ),
+]
+
+
 def read_text(path: str) -> str:
     return Path(path).read_text(encoding="utf-8", errors="replace")
 
@@ -103,6 +193,23 @@ def route(text: str, request: str) -> tuple[str, str]:
     return "method-overview", "drawio"
 
 
+def recommend_palette(text: str, request: str, backend: str) -> str:
+    if backend != "banana":
+        return "clean-academic"
+    lower = (text + "\n" + request).lower()
+    scores = {}
+    for palette, keywords in DOMAIN_PALETTE_RULES:
+        score = 0
+        for keyword in keywords:
+            if keyword in lower:
+                score += len(keyword.split())
+        scores[palette] = score
+    best_palette = max(scores, key=scores.get)
+    if scores[best_palette] == 0:
+        return FALLBACK_PALETTE
+    return best_palette
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build a shared figure_intent.yaml from source text.")
     parser.add_argument("--source-file", required=True)
@@ -121,6 +228,7 @@ def main() -> int:
 
     stages = detect_stages(text)
     title = detect_title(text)
+    palette = recommend_palette(text, args.request, backend)
     intent = {
         "title": title,
         "figure_class": figure_class,
@@ -138,7 +246,7 @@ def main() -> int:
         "stages": stages,
         "edges": [{"from": stages[idx]["id"], "to": stages[idx + 1]["id"]} for idx in range(max(0, len(stages) - 1))],
         "visual_objects": [],
-        "style_constraints": {"palette": "clean-academic", "background": "white", "label_density": "low"},
+        "style_constraints": {"palette": palette, "background": "white", "label_density": "low"},
         "verification_targets": ["required stages preserved", "no extra invented stage"],
         "assumptions": [] if stages else ["Source text did not expose explicit stages; the figure intent is incomplete."],
     }

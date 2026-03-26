@@ -7,12 +7,24 @@ Use these in most prompts:
 - clean academic illustration
 - publication-quality composition
 - white or very light background
+- vivid but paper-safe scientific accents
 - scientific and polished
 - minimal clutter
 - limited readable labels only
 - no watermark
 - no UI screenshot look
 - no stock-photo look unless explicitly wanted
+
+Recommended palette language:
+
+- prefer 4-6 distinct accent colors on a white or very light neutral background
+- avoid muddy blue-gray monotony
+- reserve the warmest accent for the key novelty, output, or feedback loop
+- keep gradients restrained and use broad color regions for module separation
+
+Palette references used by this skill:
+
+- [scientific-palettes.md](scientific-palettes.md)
 
 ## Teaser
 

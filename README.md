@@ -48,10 +48,32 @@ A single entry point routes requests to the right backend:
 
 - `research-figure-studio`: route, build `figure_intent.yaml`, render, verify
 - `drawio-architecture-diagram`: editable `.drawio` architecture and pipeline figures
-- `banana-paper-illustration`: visual abstracts, concept figures, paper-style method art
+- `banana-paper-illustration`: visual abstracts, concept figures, paper-style method art, with domain-aware palette routing
 - `plot`: Markdown / CSV / LaTeX tables to line, grouped-bar, stacked-bar, and scatter charts with `SVG + PNG`
 - `plot`: error bars, dual-axis, log-scale, dense-tick reduction, and preview-ready chart cards
 - `hybrid`: one-click `.drawio` + plot artifacts + a composed preview image
+
+## Banana Palette Routing
+
+Default Banana palettes now route by domain:
+
+| Domain | Auto palette |
+| --- | --- |
+| CV / 3D perception / segmentation / LiDAR | `tol-vibrant` |
+| NLP / document IE / text pipelines | `tol-bright` |
+| LLM / agent / tool-use / RAG | `okabe-ito` |
+| Systems / robotics / drones / audio / hardware | `vivid-academic` |
+| Theory / restrained scientific figures | `clean-academic` |
+
+You can still override the choice explicitly:
+
+```bash
+python3 skills/banana-paper-illustration/scripts/generate_banana_illustration.py \
+  --source-file examples/showcase/cv_multiscale_segmentation_visual.md \
+  --mode visual-abstract \
+  --palette tol-vibrant \
+  --output out/cv_visual.png
+```
 
 ## Repository Layout
 
@@ -143,10 +165,32 @@ python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
 
 - `research-figure-studio`：总控路由、意图生成、渲染与校验
 - `drawio-architecture-diagram`：可编辑 `.drawio` 架构图与流程图
-- `banana-paper-illustration`：论文风 visual abstract、概念图、方法图
+- `banana-paper-illustration`：论文风 visual abstract、概念图、方法图，并按论文领域自动路由默认配色
 - `plot`：支持从 Markdown / CSV / LaTeX 表格生成折线图、分组柱状图、堆叠柱状图、散点图，并输出 `SVG + PNG`
 - `plot`：补充了 error bar、双轴、对数坐标、稠密横轴压缩和标题兜底
 - `hybrid`：一键产出 `.drawio`、plot 图和组合预览图
+
+## Banana 配色路由
+
+现在 Banana 默认会按论文方向自动选色：
+
+| 方向 | 自动色盘 |
+| --- | --- |
+| CV / 3D 感知 / 分割 / LiDAR | `tol-vibrant` |
+| NLP / 文档抽取 / 文本流程 | `tol-bright` |
+| LLM / agent / 工具调用 / RAG | `okabe-ito` |
+| 系统 / 机器人 / 无人机 / 音频 / 硬件 | `vivid-academic` |
+| 理论型 / 更克制的科研图 | `clean-academic` |
+
+也可以手动指定：
+
+```bash
+python3 skills/banana-paper-illustration/scripts/generate_banana_illustration.py \
+  --source-file examples/showcase/cv_multiscale_segmentation_visual.md \
+  --mode visual-abstract \
+  --palette tol-vibrant \
+  --output out/cv_visual.png
+```
 
 ## 仓库结构
 

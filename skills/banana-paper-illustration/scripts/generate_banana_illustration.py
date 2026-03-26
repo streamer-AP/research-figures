@@ -17,6 +17,153 @@ from pathlib import Path
 API_URL = "https://api.jiekou.ai/v3/gemini-3-pro-image-text-to-image"
 DEFAULT_MODE = "method-overview"
 SUPPORTED_MODES = {"teaser", "method-overview", "visual-abstract", "system-concept"}
+DEFAULT_PALETTE = "auto"
+FALLBACK_PALETTE = "vivid-academic"
+PALETTE_PRESETS = {
+    "clean-academic": {
+        "summary": "a restrained scientific palette with clear contrast and calm publication-safe accents",
+        "accents": ["#4477AA", "#66CCEE", "#228833", "#CCBB44", "#AA3377"],
+        "guidance": [
+            "keep the background white or very light neutral gray",
+            "use blue, teal, green, amber, and plum as the main accent family",
+            "prefer flat color regions and crisp highlights over painterly gradients",
+            "keep support elements in slate, graphite, and soft gray",
+        ],
+    },
+    "vivid-academic": {
+        "summary": "a lively but still paper-safe scientific palette inspired by Paul Tol bright and vibrant schemes plus Okabe-Ito accents",
+        "accents": ["#4477AA", "#66CCEE", "#228833", "#CCBB44", "#EE6677", "#AA3377"],
+        "guidance": [
+            "keep the background white or very light warm gray",
+            "use 4 to 6 saturated accent colors with clean separation between modules",
+            "favor cobalt blue, cyan, teal, amber, coral, and magenta rather than muddy blue-gray monotony",
+            "reserve the warmest accent for the key novelty, output, or scientific focus",
+        ],
+    },
+    "okabe-ito": {
+        "summary": "a color-blind-friendly scientific palette based on the Okabe-Ito set",
+        "accents": ["#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7"],
+        "guidance": [
+            "keep hues distinct and readable for color-deficient readers",
+            "use orange, sky blue, bluish green, yellow, deep blue, vermillion, and reddish purple",
+            "avoid relying on red-green separation alone",
+        ],
+    },
+    "tol-bright": {
+        "summary": "a publication palette based on Paul Tol's bright qualitative scheme",
+        "accents": ["#4477AA", "#EE6677", "#228833", "#CCBB44", "#66CCEE", "#AA3377", "#BBBBBB"],
+        "guidance": [
+            "use bright categorical accents with balanced saturation",
+            "keep gray only as a support tone, not the main visual voice",
+            "prefer strong module blocks and crisp arrows",
+        ],
+    },
+    "tol-vibrant": {
+        "summary": "a more energetic scientific palette based on Paul Tol's vibrant qualitative scheme",
+        "accents": ["#EE7733", "#0077BB", "#33BBEE", "#EE3377", "#CC3311", "#009988", "#BBBBBB"],
+        "guidance": [
+            "push contrast slightly more than a default paper palette while staying publication-safe",
+            "use orange, blue, cyan, magenta, red, and teal for stage separation",
+            "avoid neon glow, oversaturated gradients, or dark poster aesthetics",
+        ],
+    },
+    "brewer-accent": {
+        "summary": "a ColorBrewer-inspired palette strategy that uses qualitative hues for categories and accent tones for emphasis",
+        "accents": ["#66C2A5", "#FC8D62", "#8DA0CB", "#E78AC3", "#A6D854", "#FFD92F"],
+        "guidance": [
+            "treat similar modules as related hues and reserve the strongest accent for highlights",
+            "use qualitative category colors rather than a rainbow",
+            "keep pairings visually grouped when stages are related",
+        ],
+    },
+}
+DOMAIN_PALETTE_RULES = [
+    (
+        "tol-vibrant",
+        {
+            "cv",
+            "computer vision",
+            "vision",
+            "segmentation",
+            "detection",
+            "tracking",
+            "point cloud",
+            "lidar",
+            "3d perception",
+            "scene understanding",
+            "corridor",
+            "image encoder",
+            "visual",
+        },
+    ),
+    (
+        "tol-bright",
+        {
+            "nlp",
+            "natural language",
+            "language model",
+            "document",
+            "text",
+            "entity",
+            "relation extraction",
+            "knowledge graph",
+            "retrieval",
+            "corpus",
+            "token",
+            "semantic parsing",
+        },
+    ),
+    (
+        "okabe-ito",
+        {
+            "llm",
+            "agent",
+            "tool",
+            "planner",
+            "verifier",
+            "memory",
+            "rag",
+            "multi-agent",
+            "execution loop",
+            "response synthesizer",
+            "reasoning",
+        },
+    ),
+    (
+        "vivid-academic",
+        {
+            "robot",
+            "robotics",
+            "drone",
+            "uav",
+            "system",
+            "hardware",
+            "sensor",
+            "edge",
+            "wireless",
+            "network",
+            "audio",
+            "flac",
+            "signal",
+            "speech",
+            "base station",
+        },
+    ),
+    (
+        "clean-academic",
+        {
+            "optimization",
+            "theory",
+            "mathematics",
+            "proof",
+            "scaling law",
+            "benchmark chart",
+            "ablation",
+            "plot",
+            "statistics",
+        },
+    ),
+]
 
 
 def read_text(path_str: str) -> str:
@@ -67,20 +214,49 @@ def mode_instructions(mode: str) -> str:
     return mapping[mode]
 
 
-def shared_constraints() -> str:
+def infer_palette(text: str) -> str:
+    lower = text.lower()
+    scores = {name: 0 for name in PALETTE_PRESETS}
+    for palette, keywords in DOMAIN_PALETTE_RULES:
+        for keyword in keywords:
+            if keyword in lower:
+                scores[palette] += len(keyword.split())
+    best_palette = max(scores, key=scores.get)
+    if scores[best_palette] == 0:
+        return FALLBACK_PALETTE
+    return best_palette
+
+
+def palette_instructions(palette: str, mode: str) -> str:
+    preset = PALETTE_PRESETS.get(palette, PALETTE_PRESETS[FALLBACK_PALETTE])
+    lines = [
+        f"Color direction: {preset['summary']}.",
+        "Preferred accent colors: " + ", ".join(preset["accents"]) + ".",
+        "Palette guidance: " + "; ".join(preset["guidance"]) + ".",
+    ]
+    if mode in {"method-overview", "visual-abstract"}:
+        lines.append("Use color to separate major modules and data states with broad readable regions, not decorative gradients.")
+    if mode in {"teaser", "system-concept"}:
+        lines.append("Allow one restrained cool-to-warm atmospheric transition in the background, but keep modules and subjects crisp.")
+    return " ".join(lines)
+
+
+def shared_constraints(palette: str, mode: str) -> str:
     return (
         "Use a clean academic illustration style, publication-quality composition, white or very light background, "
-        "minimal clutter, sparse readable labels only, no watermark, no UI screenshot look, and no generic stock-photo look."
+        "minimal clutter, sparse readable labels only, no watermark, no UI screenshot look, and no generic stock-photo look. "
+        + palette_instructions(palette, mode)
     )
 
 
-def build_prompt(source_text: str, mode: str, extra_prompt: str | None, title: str | None) -> str:
+def build_prompt(source_text: str, mode: str, palette: str, extra_prompt: str | None, title: str | None) -> str:
     resolved_title = title or detect_title(source_text)
     compact = compact_text(source_text)
+    resolved_palette = infer_palette(source_text) if palette == "auto" else palette
     sections = [
         f"Create a research paper illustration titled '{resolved_title}'.",
         mode_instructions(mode),
-        shared_constraints(),
+        shared_constraints(resolved_palette, mode),
         "Main scientific content to visualize:",
         compact,
         "Focus on the core scientific story rather than decorative detail.",
@@ -241,6 +417,7 @@ def main() -> int:
     parser.add_argument("--prompt", help="Direct prompt to send to the API.")
     parser.add_argument("--source-file", help="Source Markdown/text file used to derive the prompt.")
     parser.add_argument("--mode", default=DEFAULT_MODE, choices=sorted(SUPPORTED_MODES))
+    parser.add_argument("--palette", default=DEFAULT_PALETTE, choices=sorted([DEFAULT_PALETTE, *PALETTE_PRESETS.keys()]))
     parser.add_argument("--title", help="Optional explicit figure title.")
     parser.add_argument("--extra-prompt", help="Additional prompt constraints appended after the source-derived prompt.")
     parser.add_argument("--aspect-ratio", default="16:9")
@@ -258,7 +435,7 @@ def main() -> int:
     source_text = ""
     if args.source_file:
         source_text = read_text(args.source_file)
-    prompt = args.prompt or build_prompt(source_text, args.mode, args.extra_prompt, args.title)
+    prompt = args.prompt or build_prompt(source_text, args.mode, args.palette, args.extra_prompt, args.title)
     output_path = ensure_output_path(args.output, args.output_format).resolve()
 
     if args.dry_run:
