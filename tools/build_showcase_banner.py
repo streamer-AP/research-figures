@@ -14,7 +14,7 @@ ASSETS = ROOT / "docs" / "assets"
 SHOWCASE = ASSETS / "showcase"
 
 WIDTH = 1600
-HEIGHT = 900
+HEIGHT = 960
 BG = "#0F172A"
 CARD = "#111827"
 CARD_ALT = "#0B1220"
@@ -91,44 +91,62 @@ def main() -> int:
     canvas = Image.new("RGB", (WIDTH, HEIGHT), BG)
     draw = ImageDraw.Draw(canvas)
 
-    draw.text((72, 56), "Research Figure Skills", font=FONT_TITLE, fill=TEXT)
-    draw.text((74, 126), "Routing-first scientific figures across CV, NLP, LLM, and ML theory", font=FONT_SUB, fill=SUBTLE)
-    draw.rounded_rectangle((72, 170, 280, 206), radius=18, fill=ACCENT)
-    draw.text((92, 176), "drawio  banana  plot", font=FONT_META, fill="#082F49")
+    draw.text((64, 48), "Research Figure Skills", font=FONT_TITLE, fill=TEXT)
+    draw.text((66, 116), "Routing-first scientific figures across CV, NLP, LLM, hybrid systems, and advanced plots", font=FONT_SUB, fill=SUBTLE)
+    draw.rounded_rectangle((64, 156, 316, 194), radius=19, fill=ACCENT)
+    draw.text((88, 163), "drawio  banana  plot  hybrid", font=FONT_META, fill="#082F49")
 
-    tile_w = 700
+    gutter = 28
+    tile_w = 484
     tile_h = 250
-    left_x = 72
-    right_x = 828
-    row1_y = 250
-    row2_y = 540
+    col1_x = 64
+    col2_x = col1_x + tile_w + gutter
+    col3_x = col2_x + tile_w + gutter
+    row1_y = 232
+    row2_y = row1_y + tile_h + 34
 
     tiles = [
         {
             "title": "CV  Corridor Segmentation",
             "meta": "Banana method overview",
             "path": SHOWCASE / "cv_multiscale_segmentation.png",
-            "box": (left_x, row1_y, left_x + tile_w, row1_y + tile_h),
+            "box": (col1_x, row1_y, col1_x + tile_w, row1_y + tile_h),
         },
         {
             "title": "NLP  Document IE",
             "meta": "Banana paper illustration",
             "path": SHOWCASE / "nlp_document_ie.png",
-            "box": (right_x, row1_y, right_x + tile_w, row1_y + tile_h),
+            "box": (col2_x, row1_y, col2_x + tile_w, row1_y + tile_h),
         },
         {
             "title": "LLM  Tool-Using Agent",
             "meta": "Banana paper illustration",
             "path": SHOWCASE / "llm_agent_pipeline.png",
-            "box": (left_x, row2_y, left_x + tile_w, row2_y + tile_h),
+            "box": (col3_x, row1_y, col3_x + tile_w, row1_y + tile_h),
         },
         {
-            "title": "ML Theory  Scaling Law",
-            "meta": "Plot backend preview",
+            "title": "Hybrid  Structure + Results",
+            "meta": "drawio + plot composite preview",
+            "path": SHOWCASE / "hybrid_corridor_results.png",
+            "fit": "contain",
+            "inset": (28, 28, 28, 28),
+            "box": (col1_x, row2_y, col1_x + tile_w, row2_y + tile_h),
+        },
+        {
+            "title": "Plot  Scaling Law",
+            "meta": "Preview-ready line chart",
             "path": SHOWCASE / "ml_theory_scaling_law.png",
             "fit": "contain",
             "inset": (36, 36, 36, 36),
-            "box": (right_x, row2_y, right_x + tile_w, row2_y + tile_h),
+            "box": (col2_x, row2_y, col2_x + tile_w, row2_y + tile_h),
+        },
+        {
+            "title": "Plot  Dual Axis + Log X",
+            "meta": "Advanced metric visualization",
+            "path": SHOWCASE / "plot_dual_axis_logx.png",
+            "fit": "contain",
+            "inset": (30, 30, 30, 30),
+            "box": (col3_x, row2_y, col3_x + tile_w, row2_y + tile_h),
         },
     ]
 

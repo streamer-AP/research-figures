@@ -35,6 +35,15 @@ A single entry point routes requests to the right backend:
 | Dual-axis log-x tradeoff chart | [benchmark_dual_axis.md](examples/plot/benchmark_dual_axis.md) | plot | ![Dual axis showcase](docs/assets/showcase/plot_dual_axis_logx.png) |
 | Structure + results composite figure | [corridor_results_hybrid.md](examples/hybrid/corridor_results_hybrid.md) | hybrid | ![Hybrid showcase](docs/assets/showcase/hybrid_corridor_results.png) |
 
+## Examples By Backend
+
+| Backend | Example Sources |
+| --- | --- |
+| `drawio` | [flac_metadata_pipeline.md](examples/drawio/flac_metadata_pipeline.md) |
+| `banana` | [cv_multiscale_segmentation_visual.md](examples/showcase/cv_multiscale_segmentation_visual.md), [nlp_document_ie.md](examples/showcase/nlp_document_ie.md), [llm_agent_pipeline.md](examples/showcase/llm_agent_pipeline.md) |
+| `plot` | [ml_theory_scaling_law.md](examples/showcase/ml_theory_scaling_law.md), [ablation_with_error.md](examples/plot/ablation_with_error.md), [benchmark_dual_axis.md](examples/plot/benchmark_dual_axis.md), [umbrella_hourly_report.tex](examples/plot/umbrella_hourly_report.tex) |
+| `hybrid` | [corridor_results_hybrid.md](examples/hybrid/corridor_results_hybrid.md) |
+
 ## Capabilities
 
 - `research-figure-studio`: route, build `figure_intent.yaml`, render, verify
@@ -120,6 +129,15 @@ python3 skills/research-figure-studio/scripts/run_figure_pipeline.py \
 | 带误差棒的 ablation 图 | [ablation_with_error.md](examples/plot/ablation_with_error.md) | plot | ![误差棒案例](docs/assets/showcase/plot_error_bars.png) |
 | 双轴对数横轴 tradeoff 图 | [benchmark_dual_axis.md](examples/plot/benchmark_dual_axis.md) | plot | ![双轴案例](docs/assets/showcase/plot_dual_axis_logx.png) |
 | 结构图 + 结果图组合图 | [corridor_results_hybrid.md](examples/hybrid/corridor_results_hybrid.md) | hybrid | ![Hybrid 案例](docs/assets/showcase/hybrid_corridor_results.png) |
+
+## 按后端查看示例
+
+| 后端 | 示例源文件 |
+| --- | --- |
+| `drawio` | [flac_metadata_pipeline.md](examples/drawio/flac_metadata_pipeline.md) |
+| `banana` | [cv_multiscale_segmentation_visual.md](examples/showcase/cv_multiscale_segmentation_visual.md), [nlp_document_ie.md](examples/showcase/nlp_document_ie.md), [llm_agent_pipeline.md](examples/showcase/llm_agent_pipeline.md) |
+| `plot` | [ml_theory_scaling_law.md](examples/showcase/ml_theory_scaling_law.md), [ablation_with_error.md](examples/plot/ablation_with_error.md), [benchmark_dual_axis.md](examples/plot/benchmark_dual_axis.md), [umbrella_hourly_report.tex](examples/plot/umbrella_hourly_report.tex) |
+| `hybrid` | [corridor_results_hybrid.md](examples/hybrid/corridor_results_hybrid.md) |
 
 ## 能力范围
 
