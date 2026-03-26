@@ -4,7 +4,7 @@
 
 ## English
 
-A GitHub-ready bundle of Codex skills for controllable scientific figure generation.
+A bundle of Codex skills for controllable scientific figure generation.
 
 License: [MIT](LICENSE)
 
@@ -111,18 +111,6 @@ python3 skills/banana-paper-illustration/scripts/generate_banana_illustration.py
   --output out/flac_metadata_overview.png
 ```
 
-## Security And Publishing Rules
-
-- no API keys are stored in source files
-- secrets must come from environment variables only
-- no generated private figures should be committed
-- no local shell config or machine-specific paths should be required
-
-Before publishing:
-
-1. review `examples/` and `docs/assets/`
-2. verify Git history does not contain temporary secrets
-
 ## Current Limits
 
 - `plot` currently targets simple line and grouped-bar charts
@@ -134,7 +122,7 @@ Before publishing:
 
 ## 中文说明
 
-这是一个面向 GitHub 发布的科研绘图 Codex skills 集合，核心目标不是“单一 prompt 出图”，而是把科研绘图拆成可控的四步：
+这是一个面向科研绘图的 Codex skills 集合，核心目标不是“单一 prompt 出图”，而是把科研绘图拆成可控的四步：
 
 - 路由：先判断该走 `drawio`、`plot` 还是 `banana`
 - 意图：把长篇论文/方案压缩成统一的 `figure_intent.yaml`
@@ -240,29 +228,9 @@ python3 skills/banana-paper-illustration/scripts/generate_banana_illustration.py
   --output out/flac_metadata_overview.png
 ```
 
-## 安全与公开发布规则
-
-- 不在仓库里存放 API key
-- secret 只从环境变量读取
-- 不提交私有文档生成的图
-- 不依赖本地 shell 配置或机器专属路径
-
-建议发布前检查：
-
-1. `examples/` 和 `docs/assets/` 是否都可公开
-2. Git 历史里是否曾提交过临时 key
-
 ## 当前限制
 
 - `plot` 目前只做简单折线图和分组柱状图
 - LaTeX 解析是实用型实现，重点支持常见 `tabular`
 - Banana 不适合追求像素级结构控制
 - `hybrid` 路由目前只有设计，没有实现
-
-## 推荐的 GitHub 定位
-
-这个仓库比较适合包装成：
-
-- 一个可控的科研绘图工具箱
-- 一个“路由优先”的 figure generation workflow
-- 一个连接论文文本、可编辑架构图、图表和图像式配图的实用套件
