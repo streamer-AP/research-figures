@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Figure Studio"
+  short_description: "Route scientific figures to the right backend."
+  default_prompt: "Use $research-figure-studio to turn my paper, patent, or technical text into the right kind of scientific figure with routing, figure intent generation, rendering preparation, and verification."

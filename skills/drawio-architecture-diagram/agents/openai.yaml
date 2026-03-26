@@ -1,0 +1,4 @@
+interface:
+  display_name: "draw.io Architecture Diagram"
+  short_description: "Generate editable draw.io architecture diagrams with planning and verification."
+  default_prompt: "Use $drawio-architecture-diagram to turn my paper, patent, or method description into a planned, verified, editable draw.io architecture diagram with a planning summary, diagram spec, verification notes, draw.io file, caption, and layout notes."

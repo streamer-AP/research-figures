@@ -1,0 +1,4 @@
+interface:
+  display_name: "Banana Paper Illustration"
+  short_description: "Generate paper-style illustrations via Banana text-to-image."
+  default_prompt: "Use $banana-paper-illustration to turn my paper abstract, method description, or caption into a Banana text-to-image prompt and generate a paper-style illustration."
