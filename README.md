@@ -1,5 +1,7 @@
 # Research Figures
 
+[![Offline Demo](https://github.com/streamer-AP/research-figures/actions/workflows/offline-demo.yml/badge.svg)](https://github.com/streamer-AP/research-figures/actions/workflows/offline-demo.yml)
+
 Turn paper text, tables, and patent drafts into publication-ready figures in one command.
 
 [Quickstart](docs/QUICKSTART.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md) · [Release Notes](docs/release/v0.1.0.md) · [中文](#中文说明)

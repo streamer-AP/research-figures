@@ -1,0 +1,48 @@
+name: offline-demo
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: python3 -m pip install -r requirements.txt
+
+      - name: Ensure wrappers are executable
+        run: chmod +x research-figures tools/demo_showcase.py
+
+      - name: Run offline showcase demo
+        run: ./research-figures demo --offline
+
+      - name: Run single-figure README example
+        run: ./research-figures --source-file examples/showcase/ml_theory_scaling_law.md --request "generate a scaling law line plot" --output-dir out/ci_single
+
+      - name: Verify expected artifacts
+        run: |
+          test -f out/showcase_demo/plot_scaling_law/figure.caption.md
+          test -f out/showcase_demo/drawio_flac_pipeline/figure.drawio
+          test -f out/showcase_demo/hybrid_corridor_results/figure.hybrid_preview.png
+          test -f out/showcase_demo/banana_cv_visual/figure.prompt.txt
+          test -f out/ci_single/figure.png
+          test -f out/ci_single/figure.caption.md
+
+      - name: Upload demo artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-figures-offline-demo
+          path: |
+            out/showcase_demo
+            out/ci_single
