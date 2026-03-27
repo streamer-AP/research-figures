@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Quickstart
+    url: https://github.com/streamer-AP/research-figures/blob/main/docs/QUICKSTART.md
+    about: Start here if you want the fastest path from clone to a successful offline demo.
+  - name: Contributing
+    url: https://github.com/streamer-AP/research-figures/blob/main/CONTRIBUTING.md
+    about: Read contribution expectations before opening a large change.
+
