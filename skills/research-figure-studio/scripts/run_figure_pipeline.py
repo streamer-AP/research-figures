@@ -163,6 +163,27 @@ def render_hybrid(
     return preview_png, [drawio_spec, drawio_path, plot_spec, plot_svg, plot_png, preview_png]
 
 
+def compile_caption(
+    script_dir: Path,
+    intent_path: Path,
+    output_dir: Path,
+    backend: str,
+) -> Path:
+    caption_path = output_dir / "figure.caption.md"
+    run(
+        [
+            "python3",
+            str(script_dir / "compile_figure_caption.py"),
+            str(intent_path),
+            "--backend",
+            backend,
+            "-o",
+            str(caption_path),
+        ]
+    )
+    return caption_path
+
+
 def verify(
     script_dir: Path,
     intent_path: Path,
@@ -238,6 +259,8 @@ def main() -> int:
 
     verification = verify(script_dir, intent_path, backend, artifact_path, verify_path)
     produced_files.append(verify_path)
+    caption_path = compile_caption(script_dir, intent_path, output_dir, backend)
+    produced_files.append(caption_path)
 
     bundle = {
         "figure_class": figure_class,
@@ -245,6 +268,7 @@ def main() -> int:
         "route_file": str(route_path),
         "intent_file": str(intent_path),
         "artifact": str(artifact_path) if artifact_path else None,
+        "caption_file": str(caption_path),
         "verification_file": str(verify_path),
         "verification_status": verification.get("status"),
         "produced_files": [str(path) for path in produced_files],

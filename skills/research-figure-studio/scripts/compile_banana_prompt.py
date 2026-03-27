@@ -9,6 +9,8 @@ from pathlib import Path
 
 import yaml
 
+from compile_figure_caption import clean_items, extract_source_context, infer_inputs_from_stage, infer_output_from_stage
+
 
 DEFAULT_PALETTE = "vivid-academic"
 PALETTE_PRESETS = {
@@ -95,16 +97,27 @@ def main() -> int:
     args = parser.parse_args()
 
     intent = yaml.safe_load(Path(args.intent).read_text(encoding="utf-8"))
-    title = intent.get("title", "Scientific Figure")
+    source_context = extract_source_context(intent)
+    title = intent.get("title") or source_context.get("title") or "Scientific Figure"
     figure_class = intent.get("figure_class", "method-overview")
     style_constraints = intent.get("style_constraints", {}) or {}
     palette = str(style_constraints.get("palette") or DEFAULT_PALETTE)
     background = str(style_constraints.get("background") or "white")
     label_density = str(style_constraints.get("label_density") or "low")
-    stages = [stage.get("label", "") for stage in intent.get("stages", []) if stage.get("label")]
-    inputs = [str(item) for item in intent.get("inputs", []) if item]
-    outputs = [str(item) for item in intent.get("outputs", []) if item]
-    visual_objects = [str(item) for item in intent.get("visual_objects", []) if item]
+    stages = clean_items(intent.get("stages", [])) or source_context.get("stages", []) or source_context.get("story", [])
+    inputs = clean_items(intent.get("inputs", [])) or source_context.get("inputs", [])
+    outputs = clean_items(intent.get("outputs", [])) or source_context.get("outputs", [])
+    visual_objects = clean_items(intent.get("visual_objects", [])) or source_context.get("visual", [])
+
+    if not inputs and stages:
+        inferred_input = infer_inputs_from_stage(stages[0])
+        if inferred_input:
+            inputs = [inferred_input]
+            stages = stages[1:]
+    if not outputs and stages:
+        inferred_output = infer_output_from_stage(stages[-1])
+        if inferred_output:
+            outputs = [inferred_output]
     prompt_lines = [
         f"Create a clean publication-quality scientific figure titled '{title}'.",
         f"Use a {background} or very light neutral background, minimal clutter, balanced composition, and only a few large readable labels.",

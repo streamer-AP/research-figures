@@ -24,6 +24,7 @@ This wrapper will:
 - compile backend-ready artifacts
 - invoke the installed backend skill
 - verify the result
+- compile a paper-ready caption file, with source-aware fallback when the intent is thin
 - write `bundle.yaml`
 
 ### 1. Route The Figure
@@ -141,6 +142,7 @@ The hybrid backend currently outputs:
 Read:
 
 - [references/scientific-figure-prompt-patterns.md](references/scientific-figure-prompt-patterns.md)
+- [references/caption-guidelines.md](references/caption-guidelines.md)
 
 ### 5. Verify Before Finalizing
 
@@ -191,6 +193,7 @@ If the image backend still drifts on a structure-heavy figure:
 - [scripts/route_figure_backend.py](scripts/route_figure_backend.py)
 - [scripts/extract_scientific_figure_content.py](scripts/extract_scientific_figure_content.py)
 - [scripts/build_figure_intent.py](scripts/build_figure_intent.py)
+- [scripts/compile_figure_caption.py](scripts/compile_figure_caption.py)
 - [scripts/compile_banana_prompt.py](scripts/compile_banana_prompt.py)
 - [scripts/compile_drawio_package.py](scripts/compile_drawio_package.py)
 - [scripts/compile_plot_package.py](scripts/compile_plot_package.py)
@@ -209,8 +212,9 @@ Return:
 2. chosen backend and reason
 3. `figure_intent.yaml`
 4. backend-ready artifact such as a prompt or diagram package
-5. verification summary
-6. fallback recommendation when needed
+5. generated caption file
+6. verification summary
+7. fallback recommendation when needed
 
 ## Failure Handling
 
